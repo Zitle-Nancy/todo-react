@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ChangeEvent, FormEvent, useState } from "react";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [task, setTask] = useState<string | null>(null);
+  const [listOfTasks, setListOfTasks] = useState<string[]>([]);
+
+  const getValue = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.currentTarget;
+    setTask(value);
+  };
+
+  const addNewTask = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    task && setListOfTasks([task, ...listOfTasks]);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Welcome again, Nancy!</h1>
+      <form onSubmit={addNewTask}>
+        <input type="text" onChange={getValue} />
+        <input type="submit" value="Add Task"></input>
+      </form>
+      {/* Our all task */}
+      {listOfTasks.length > 0 && (
+        <>
+          <h2> All tasks to do</h2>
+          <ol>
+            {listOfTasks.map((task, index) => (
+              <li key={index}>{task}</li>
+            ))}
+          </ol>
+        </>
+      )}
     </div>
   );
-}
+};
 
 export default App;
