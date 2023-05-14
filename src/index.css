@@ -15,3 +15,14 @@ code {
 h1 {
   margin-bottom: 1rem;
 }
+
+.lineThrough{
+  text-decoration-line: line-through;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
